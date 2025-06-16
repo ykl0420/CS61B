@@ -91,7 +91,7 @@ public class CheckLabConfig {
 			}
 		} // for future reference in case we need to test configurations separately
 		     for Mac OS, Catalina, Linux, etc*/
-
+		
 		System.out.println("Your system appears to be configured correctly. You've completed lab 1 setup.");
 	}
 }
