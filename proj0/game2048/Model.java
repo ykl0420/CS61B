@@ -5,9 +5,9 @@ import java.util.Observable;
 
 
 /** The state of a game of 2048.
- *  @author TODO: YOUR NAME HERE
+ *  @author ykl
  */
-public class Model extends Observable {
+public class   Model extends Observable {
     /** Current contents of the board. */
     private Board board;
     /** Current score. */
@@ -110,9 +110,50 @@ public class Model extends Observable {
         boolean changed;
         changed = false;
 
-        // TODO: Modify this.board (and perhaps this.score) to account
+        // Modify this.board (and perhaps this.score) to account
         // for the tilt to the Side SIDE. If the board changed, set the
         // changed local variable to true.
+
+        board.setViewingPerspective(side);
+
+        /** Merge all the tile,without moving. */
+        for(int col = 0; col < size(); col ++){
+            /** Deal with the tiles at column col. */
+            int lstRow = 0;
+            Tile lstTile = null;
+            for(int row = size() - 1; row >= 0; row --){
+                Tile tile = board.tile(col,row);
+                if(tile == null) continue;
+                if(lstTile == null || lstTile.value() != tile.value()){
+                    lstRow = row;
+                    lstTile = tile;
+                    continue;
+                }
+                score += 2 * tile.value();
+                changed = true;
+                board.move(col,lstRow,tile);
+                lstTile = null;
+            }
+        }
+
+        /** Move the remaining tiles to the correct place.*/
+
+        for(int col = 0; col < size(); col ++){
+            /** Deal with the tiles at column col. */
+            int nxtRow = size() - 1;
+            for(int row = size() - 1; row >= 0; row --){
+                Tile tile = board.tile(col,row);
+                if(tile != null){
+                    if(row != nxtRow){
+                        board.move(col,nxtRow,tile);
+                        changed = true;
+                    }
+                    nxtRow --;
+                }
+            }
+        }
+
+        board.setViewingPerspective(Side.NORTH);
 
         checkGameOver();
         if (changed) {
@@ -137,7 +178,10 @@ public class Model extends Observable {
      *  Empty spaces are stored as null.
      * */
     public static boolean emptySpaceExists(Board b) {
-        // TODO: Fill in this function.
+        for(int col = 0; col < b.size(); col ++)
+            for(int row = 0; row < b.size(); row ++)
+                if(b.tile(col,row) == null)
+                    return true;
         return false;
     }
 
@@ -147,10 +191,36 @@ public class Model extends Observable {
      * given a Tile object t, we get its value with t.value().
      */
     public static boolean maxTileExists(Board b) {
-        // TODO: Fill in this function.
+        for(int col = 0; col < b.size(); col ++)
+            for(int row = 0; row < b.size(); row ++)
+                if(b.tile(col,row) != null &&  b.tile(col,row).value() == MAX_PIECE)
+                    return true;
         return false;
     }
 
+    /**
+     * Returns True if
+     * 1. There is a Tile at (row+dr,col+dc)
+     * 2. it has the same value with the Tile at (row,col)
+     */
+    public static boolean existAndHaveSameValue(Board b,int row,int col,int dr,int dc){
+        int row2 = row + dr,col2 = col + dc;
+        if(row2 < 0 || row2 >= b.size() || col2 < 0 || col2 >= b.size())
+            return false;
+        if(b.tile(col2,row2) == null)
+            return false;
+        return b.tile(col,row).value() == b.tile(col2,row2).value();
+    }
+
+    /** Check if Board b has two adjacent Tile with same value */
+    public static boolean adjacentSameValueExists(Board b){
+        for(int row = 0; row < b.size(); row ++)
+            for(int col = 0; col < b.size(); col ++){
+                if(existAndHaveSameValue(b,row,col,0,1) || existAndHaveSameValue(b,row,col,1,0))
+                    return true;
+            }
+        return false;
+    }
     /**
      * Returns true if there are any valid moves on the board.
      * There are two ways that there can be valid moves:
@@ -158,8 +228,7 @@ public class Model extends Observable {
      * 2. There are two adjacent tiles with the same value.
      */
     public static boolean atLeastOneMoveExists(Board b) {
-        // TODO: Fill in this function.
-        return false;
+        return emptySpaceExists(b) || adjacentSameValueExists(b);
     }
 
 
