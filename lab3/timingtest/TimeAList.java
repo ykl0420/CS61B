@@ -26,8 +26,8 @@ public class TimeAList {
 		AList<Integer> Ns = new AList<>();
 		AList<Double> times = new AList<>();
 		AList<Integer> opCounts = new AList<>();
-		int N = 1000;
-		while(N <= 128000){
+		int N = 100000;
+		while(N <= 12800000){
 			timeAListConstructionWithN(N,Ns,times,opCounts);
 			N *= 2;
 		}
