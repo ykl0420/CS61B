@@ -22,12 +22,13 @@ public class AList<T> implements Iterable<T>{
 	private class AListIterator implements Iterator<T>{
 		private int pos;
 		public AListIterator(){
-			pos = left;
+			pos = -1;
 		}
 		public boolean hasNext(){
 			return pos != right;
 		}
 		public T next(){
+			if(pos == -1) pos = left;
 			T retVal = items[pos];
 			pos = nxt(pos);
 			return retVal;
@@ -53,8 +54,8 @@ public class AList<T> implements Iterable<T>{
 	/** Adds an item of type T to the front of the deque.
 	 *  You can assume that item is never null. */
 	public void addFirst(T item){
+		if(size == capacity()) resize(capacity() * 2);
 		size ++;
-		if(pre(left) == right) resize(capacity() * 2);
 		left = pre(left);
 		items[left] = item;
 	}
@@ -62,10 +63,10 @@ public class AList<T> implements Iterable<T>{
 	/** Adds an item of type T to the back of the deque.
 	 *  You can assume that item is never null. */
 	public void addLast(T item) {
+		if(size == capacity()) resize(capacity() * 2);
 		size ++;
-		if(nxt(right) == left) resize(capacity() * 2);
-		right = nxt(right);
 		items[right] = item;
+		right = nxt(right);
 	}
 	/** Returns true if deque is empty, false otherwise. */
 	public boolean isEmpty() {
@@ -86,10 +87,10 @@ public class AList<T> implements Iterable<T>{
 	public T removeFirst() {
 		if(size == 0) return null;
 		size --;
-		if(capacity() >= 16 && 4 * size < capacity()) resize(capacity() / 2);
 		T retVal = items[left];
 		items[left] = null;
 		left = nxt(left);
+		if(capacity() >= 16 && 4 * size < capacity()) resize(capacity() / 2);
 		return retVal;
 	}
 	/** Removes and returns the item at the back of the deque.
@@ -97,10 +98,10 @@ public class AList<T> implements Iterable<T>{
 	public T removeLast() {
 		if(size == 0) return null;
 		size --;
-		if(capacity() >= 16 && 4 * size < capacity()) resize(capacity() / 2);
+		right = pre(right);
 		T retVal = items[right];
 		items[right] = null;
-		right = pre(right);
+		if(capacity() >= 16 && 4 * size < capacity()) resize(capacity() / 2);
 		return retVal;
 	}
 

@@ -6,6 +6,10 @@ public class ArrayDeque<T> implements Iterable<T>,Deque<T> {
 
 	private AList<T> list;
 
+	public ArrayDeque(){
+		list = new AList<>();
+	}
+
 	/** Adds an item of type T to the front of the deque.
 	 *  You can assume that item is never null. */
 	public void addFirst(T item) {

@@ -139,21 +139,53 @@ public class LinkedListDequeTest {
 
     @Test
     public void ownTestByHand1(){
-        LinkedListDeque<Integer> t = new LinkedListDeque<Integer>();
-        t.addFirst(1);
-        t.addFirst(2);
-        t.removeLast();
-        t.addFirst(3);
-        t.addLast(4);
-        t.removeFirst();
-        t.printDeque();
-        assertEquals((long)t.size(),(long)2);
-        assertEquals((long)t.get(0),(long)2);
-        assertEquals((long)t.get(1),(long)4);
-        assertEquals((long)t.get(0),(long)t.getRecursive(0));
-        assertEquals((long)t.get(1),(long)t.getRecursive(1));
-        assertEquals(null,t.getRecursive(2));
-        assertEquals(t.get(2),null);
+        LinkedListDeque<Integer> t1 = new LinkedListDeque<Integer>();
+        ArrayDeque<Integer> t2 = new ArrayDeque<>();
+        t1.addFirst(1);
+        t2.addFirst(1);
+        t1.addFirst(2);
+        t2.addFirst(2);
+        t2.printDeque();
+        assertEquals(2,t2.size());
+        t1.removeLast();
+        t2.removeLast();
+        t2.printDeque();
+        t1.addFirst(3);
+        t2.addFirst(3);
+        t2.printDeque();
+        t1.addLast(4);
+        t2.addLast(4);
+        t2.printDeque();
+        t1.removeFirst();
+        t2.removeFirst();
+//        t1.printDeque();
+        t2.printDeque();
+        assertEquals(t1.size(),2);
+        assertEquals(t2.size(),2);
+        assertEquals((int)t1.get(0),2);
+        assertEquals((int)t2.get(0),2);
+        assertEquals((int)t1.get(1),4);
+        assertEquals((int)t2.get(1),4);
+        assertEquals((int)t1.get(0),(int)t1.getRecursive(0));
+        assertEquals((int)t1.get(1),(int)t1.getRecursive(1));
+        assertEquals(null,t1.getRecursive(2));
+        assertEquals(t1.get(2),null);
+        assertEquals(t2.get(2),null);
 
+    }
+
+    @Test
+    public void testResize(){
+
+        ArrayDeque<Integer> t2 = new ArrayDeque<>();
+
+        for(int i = 0; i < 16; i ++) t2.addFirst(i);
+        assertEquals(16,t2.size());
+        t2.printDeque();
+        for(int i = 0; i < 16; i ++) assertEquals(15 - i,(int)t2.get(i));
+        for(int i = 15; i >= 2; i --) assertEquals(15 - i,(int)t2.removeLast());
+        assertEquals(2,t2.size());
+        assertEquals(15,(int)t2.get(0));
+        assertEquals(14,(int)t2.get(1));
     }
 }
