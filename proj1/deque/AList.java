@@ -22,13 +22,12 @@ public class AList<T> implements Iterable<T>{
 	private class AListIterator implements Iterator<T>{
 		private int pos;
 		public AListIterator(){
-			pos = -1;
+			pos = left;
 		}
 		public boolean hasNext(){
 			return pos != right;
 		}
 		public T next(){
-			if(pos == -1) pos = left;
 			T retVal = items[pos];
 			pos = nxt(pos);
 			return retVal;
@@ -54,7 +53,7 @@ public class AList<T> implements Iterable<T>{
 	/** Adds an item of type T to the front of the deque.
 	 *  You can assume that item is never null. */
 	public void addFirst(T item){
-		if(size == capacity()) resize(capacity() * 2);
+		if(size == capacity() - 1) resize(capacity() * 2);
 		size ++;
 		left = pre(left);
 		items[left] = item;
@@ -63,7 +62,7 @@ public class AList<T> implements Iterable<T>{
 	/** Adds an item of type T to the back of the deque.
 	 *  You can assume that item is never null. */
 	public void addLast(T item) {
-		if(size == capacity()) resize(capacity() * 2);
+		if(size == capacity() - 1) resize(capacity() * 2);
 		size ++;
 		items[right] = item;
 		right = nxt(right);
