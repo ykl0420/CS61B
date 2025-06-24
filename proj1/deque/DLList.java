@@ -5,11 +5,11 @@ import java.util.Iterator;
 public class DLList<T> implements Iterable<T>{
 
 	private Node sentinel;
-	int size;
+	private int size;
 
 	private class Node{
-		T first;
-		Node next,pre;
+		private T first;
+		private Node next,pre;
 		public Node(){
 			first = null;
 			next = null;
@@ -110,11 +110,12 @@ public class DLList<T> implements Iterable<T>{
 	/** Gets the item at the given index, where 0 is the front, 1 is the next item, and so forth.
 	 *  If no such item exists, returns null. Must not alter the deque! */
 	public T get(int index){
+		index ++; // make the index start from 1, since the indCount also start from 1 due to the sentinel
 		if(index > size) return null;
 		int indCount = 0;
 		for(T x : this){
-			indCount ++;
 			if(indCount == index) return x;
+			indCount ++;
 		}
 		return null;
 	}

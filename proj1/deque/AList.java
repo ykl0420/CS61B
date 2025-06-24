@@ -1,35 +1,71 @@
 package deque;
 
-import java.util.Iterator
+import java.util.Iterator;
 
 public class AList<T> implements Iterable<T>{
 
-	T[] items;
-	int size;
+	private T[] items;
+	private int size,left,right;
+
+	private	int capacity(){
+		return items.length;
+	}
+
+	private int pre(int pos){
+		return (pos + capacity() - 1) % capacity();
+	}
+
+	private int nxt(int pos){
+		return (pos + 1) % capacity();
+	}
 
 	private class AListIterator implements Iterator<T>{
+		private int pos;
+		public AListIterator(){
+			pos = left;
+		}
 		public boolean hasNext(){
-
+			return pos != right;
 		}
 		public T next(){
-
+			T retVal = items[pos];
+			pos = nxt(pos);
+			return retVal;
 		}
 	}
 
-	void resize(int newSize){
+	public AList(){
+		left = 0;
+		right = 0;
+		size = 0;
+		items = (T[])(new Object[8]);
+	}
 
+	private void resize(int newSize){
+		T[] newItems = (T[])(new Object[newSize]);
+		int ind = 0;
+		for(T x : this) newItems[ind++] = x;
+		items = newItems;
+		left = 0;
+		right = size;
 	}
 
 	/** Adds an item of type T to the front of the deque.
 	 *  You can assume that item is never null. */
 	public void addFirst(T item){
+		size ++;
+		if(pre(left) == right) resize(capacity() * 2);
+		left = pre(left);
+		items[left] = item;
 	}
 
 	/** Adds an item of type T to the back of the deque.
 	 *  You can assume that item is never null. */
 	public void addLast(T item) {
-		if(size == items.length) resize(items.length * 2);
-		items[size ++] = item;
+		size ++;
+		if(nxt(right) == left) resize(capacity() * 2);
+		right = nxt(right);
+		items[right] = item;
 	}
 	/** Returns true if deque is empty, false otherwise. */
 	public boolean isEmpty() {
@@ -48,44 +84,40 @@ public class AList<T> implements Iterable<T>{
 	/** Removes and returns the item at the front of the deque.
 	 *  If no such item exists, returns null. */
 	public T removeFirst() {
-		DLList.Node tmpNext = sentinel.next;
-		sentinel.next = sentinel.next.next;
-		if(tmpNext != sentinel) {
-			size --;
-			tmpNext.next = null;
-			tmpNext.pre = null;
-		}
-		sentinel.next.pre = sentinel;
-		return tmpNext.first;
+		if(size == 0) return null;
+		size --;
+		if(capacity() >= 16 && 4 * size < capacity()) resize(capacity() / 2);
+		T retVal = items[left];
+		items[left] = null;
+		left = nxt(left);
+		return retVal;
 	}
 	/** Removes and returns the item at the back of the deque.
 	 *  If no such item exists, returns null. */
 	public T removeLast() {
-		DLList.Node tmpPre = sentinel.pre;
-		sentinel.pre = sentinel.pre.pre;
-		if(tmpPre != sentinel) {
-			size --;
-			tmpPre.pre = null;
-			tmpPre.next = null;
-		}
-		sentinel.pre.next = sentinel;
-		return tmpPre.first;
+		if(size == 0) return null;
+		size --;
+		if(capacity() >= 16 && 4 * size < capacity()) resize(capacity() / 2);
+		T retVal = items[right];
+		items[right] = null;
+		right = pre(right);
+		return retVal;
 	}
 
 	/** Gets the item at the given index, where 0 is the front, 1 is the next item, and so forth.
 	 *  If no such item exists, returns null. Must not alter the deque! */
 	public T get(int index){
-		if(index > size) return null;
+		if(index >= size) return null;
 		int indCount = 0;
 		for(T x : this){
-			indCount ++;
 			if(indCount == index) return x;
+			indCount ++;
 		}
 		return null;
 	}
 
 	public Iterator<T> iterator(){
-		return new AList.AListIterator();
+		return new AListIterator();
 	}
 
 }
