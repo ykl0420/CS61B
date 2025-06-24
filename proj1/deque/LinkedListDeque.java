@@ -47,6 +47,10 @@ public class LinkedListDeque<T> implements Iterable<T>,Deque<T>{
 		return list.get(index);
 	}
 
+	public T getRecursive(int index){
+		return list.getRecursive(index);
+	}
+
 	/** The Deque objects we’ll make are iterable (i.e. Iterable<T>); so we must provide this method to return an iterator. */
 	public Iterator<T> iterator(){
 		return list.iterator();

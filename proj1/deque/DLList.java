@@ -118,6 +118,16 @@ public class DLList<T> implements Iterable<T>{
 		return null;
 	}
 
+	private T getRecursiveByNode(Node node,int index){
+		if(node == null) return null;
+		if(index == 0) return node.first;
+		else return getRecursiveByNode(node.next,index - 1);
+	}
+
+	public T getRecursive(int index){
+		return getRecursiveByNode(sentinel.next,index);
+	}
+
 	public Iterator<T> iterator(){
 		return new DLListIterator();
 	}

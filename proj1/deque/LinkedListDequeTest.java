@@ -150,6 +150,10 @@ public class LinkedListDequeTest {
         assertEquals((long)t.size(),(long)2);
         assertEquals((long)t.get(0),(long)2);
         assertEquals((long)t.get(1),(long)4);
+        assertEquals((long)t.get(0),(long)t.getRecursive(0));
+        assertEquals((long)t.get(1),(long)t.getRecursive(1));
+        assertEquals(null,t.getRecursive(2));
+        assertEquals(t.get(2),null);
 
     }
 }
