@@ -2,7 +2,7 @@ package deque;
 
 import java.util.Iterator;
 
-public interface Deque<T> {
+public interface Deque<T> extends Iterable<T> {
 
 	/** Adds an item of type T to the front of the deque.
 	 *  You can assume that item is never null. */
