@@ -76,7 +76,9 @@ public class DLList<T> implements Iterable<T> {
     /** Prints the items in the deque from first to last, separated by a space.
      *  Once all the items have been printed, print out a new line. */
     public void print() {
-        for (T x : this) System.out.print(x + " ");
+        for (T x : this) {
+            System.out.print(x + " ");
+        }
         System.out.println();
     }
     /** Removes and returns the item at the front of the deque.

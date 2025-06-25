@@ -4,94 +4,94 @@ import java.util.Iterator;
 
 public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
 
-	private AList<T> list;
+    private AList<T> list;
 
-	public ArrayDeque() {
-		list = new AList<>();
-	}
+    public ArrayDeque() {
+        list = new AList<>();
+    }
 
-	/** Adds an item of type T to the front of the deque.
-	 *  You can assume that item is never null. */
-	@Override
-	public void addFirst(T item) {
-		list.addFirst(item);
-	}
-	/** Adds an item of type T to the back of the deque.
-	 *  You can assume that item is never null. */
-	@Override
-	public void addLast(T item) {
-		list.addLast(item);
-	}
-	/** Returns the number of items in the deque. */
-	@Override
-	public int size() {
-		return list.size();
-	}
-	/** Prints the items in the deque from first to last, separated by a space.
-	 *  Once all the items have been printed, print out a new line. */
-	@Override
-	public void printDeque() {
-		list.print();
-	}
-	/** Removes and returns the item at the front of the deque.
-	 *  If no such item exists, returns null. */
-	@Override
-	public T removeFirst() {
-		return list.removeFirst();
-	}
-	/** Removes and returns the item at the back of the deque.
-	 *  If no such item exists, returns null. */
-	@Override
-	public T removeLast() {
-		return list.removeLast();
-	}
-	/** Gets the item at the given index, where 0 is the front, 1 is the next item, and so forth.
-	 *  If no such item exists, returns null. Must not alter the deque! */
-	@Override
-	public T get(int index) {
-		return list.get(index);
-	}
+    /** Adds an item of type T to the front of the deque.
+     *  You can assume that item is never null. */
+    @Override
+    public void addFirst(T item) {
+        list.addFirst(item);
+    }
+    /** Adds an item of type T to the back of the deque.
+     *  You can assume that item is never null. */
+    @Override
+    public void addLast(T item) {
+        list.addLast(item);
+    }
+    /** Returns the number of items in the deque. */
+    @Override
+    public int size() {
+        return list.size();
+    }
+    /** Prints the items in the deque from first to last, separated by a space.
+     *  Once all the items have been printed, print out a new line. */
+    @Override
+    public void printDeque() {
+        list.print();
+    }
+    /** Removes and returns the item at the front of the deque.
+     *  If no such item exists, returns null. */
+    @Override
+    public T removeFirst() {
+        return list.removeFirst();
+    }
+    /** Removes and returns the item at the back of the deque.
+     *  If no such item exists, returns null. */
+    @Override
+    public T removeLast() {
+        return list.removeLast();
+    }
+    /** Gets the item at the given index, where 0 is the front, 1 is the next item, and so forth.
+     *  If no such item exists, returns null. Must not alter the deque! */
+    @Override
+    public T get(int index) {
+        return list.get(index);
+    }
 
-	/** The Deque objects we’ll make are iterable (i.e. Iterable<T>) {
+    /** The Deque objects we’ll make are iterable (i.e. Iterable<T>) {
 
 
-	 } so we must provide this method to return an iterator. */
-	@Override
-	public Iterator<T> iterator() {
-		return list.iterator();
-	}
+     } so we must provide this method to return an iterator. */
+    @Override
+    public Iterator<T> iterator() {
+        return list.iterator();
+    }
 
-	/** Returns whether or not the parameter o is equal to the Deque.
-	 *  o is considered equal if it is a Deque and if it contains the same contents
-	 *  (as goverened by the generic T’s equals method) in the same order.
-	 *  (ADDED 2/12: You’ll need to use the instance of keywords for this.
-	 *  Read here for more information) */
-	@Override
-	public boolean equals(Object o) {
+    /** Returns whether or not the parameter o is equal to the Deque.
+     *  o is considered equal if it is a Deque and if it contains the same contents
+     *  (as goverened by the generic T’s equals method) in the same order.
+     *  (ADDED 2/12: You’ll need to use the instance of keywords for this.
+     *  Read here for more information) */
+    @Override
+    public boolean equals(Object o) {
 
-		if (!(o instanceof Deque)) {
-			return false;
-		}
-		if (this.size() != ((Deque) o).size()) {
-			return false;
-		}
-		if (o instanceof Iterable) {
-			Iterable other = (Iterable) o;
-			Iterator<T> it1 = this.iterator(), it2 = other.iterator();
-			while (it1.hasNext()) {
-				if (!it1.next().equals(it2.next())) {
-					return false;
-				}
-			}
-			return true;
-		} else {
-			Deque other = (Deque) o;
-			for (int i = 0; i < this.size(); i++) {
-				if (this.get(i).equals(other.get(i))) {
-					return false;
-				}
-			}
-			return true;
-		}
-	}
+        if (!(o instanceof Deque)) {
+            return false;
+        }
+        if (this.size() != ((Deque) o).size()) {
+            return false;
+        }
+        if (o instanceof Iterable) {
+            Iterable other = (Iterable) o;
+            Iterator<T> it1 = this.iterator(), it2 = other.iterator();
+            while (it1.hasNext()) {
+                if (!it1.next().equals(it2.next())) {
+                    return false;
+                }
+            }
+            return true;
+        } else {
+            Deque other = (Deque) o;
+            for (int i = 0; i < this.size(); i++) {
+                if (this.get(i).equals(other.get(i))) {
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
 }
