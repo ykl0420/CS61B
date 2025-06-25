@@ -11,7 +11,9 @@ public interface Deque<T> {
 	 *  You can assume that item is never null. */
 	public void addLast(T item);
 	/** Returns true if deque is empty, false otherwise. */
-	public boolean isEmpty();
+	default public boolean isEmpty(){
+		return size() == 0;
+	}
 	/** Returns the number of items in the deque. */
 	public int size();
 	/** Prints the items in the deque from first to last, separated by a space.

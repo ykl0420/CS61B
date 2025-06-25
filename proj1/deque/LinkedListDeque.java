@@ -20,11 +20,6 @@ public class LinkedListDeque<T> implements Iterable<T>,Deque<T>{
 	public void addLast(T item){
 		list.addLast(item);
 	}
-	/** Returns true if deque is empty, false otherwise. */
-	@Override
-	public boolean isEmpty(){
-		return list.isEmpty();
-	}
 	/** Returns the number of items in the deque. */
 	@Override
 	public int size(){
