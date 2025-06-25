@@ -1,6 +1,9 @@
 package deque;
 
 import org.junit.Test;
+
+import java.util.Comparator;
+
 import static org.junit.Assert.*;
 
 
@@ -187,5 +190,38 @@ public class LinkedListDequeTest {
         assertEquals(2,t2.size());
         assertEquals(15,(int)t2.get(0));
         assertEquals(14,(int)t2.get(1));
+    }
+
+    public class MinCompartor<T extends Comparable<? super T> > implements Comparator<T>{
+        public int compare(T x,T y){
+            if(x == null) return -1;
+            return -x.compareTo(y);
+        }
+    }class MaxCompartor<T extends Comparable<? super T> > implements Comparator<T>{
+        public int compare(T x,T y){
+            if(x == null) return -1;
+            return x.compareTo(y);
+        }
+    }
+
+    @Test
+    public void testMaxArrayDeque(){
+        MaxArrayDeque<Integer> t = new MaxArrayDeque<>(new MinCompartor<Integer>());
+        t.addFirst(1);
+        t.addFirst(10);
+        t.addFirst(1);
+        t.addFirst(1);
+        t.addFirst(1);
+        t.addLast(1);
+        t.addLast(1);
+        t.addLast(1);
+        t.addLast(1);
+        t.addLast(1);
+        t.addFirst(1);
+        t.addFirst(3);
+        t.addFirst(3);
+        t.addLast(-5);
+        assertEquals(-5,(int)t.max());
+        assertEquals(10,(int)t.max(new MaxCompartor<>()));
     }
 }
