@@ -7,10 +7,10 @@ import edu.princeton.cs.algs4.StdDraw;
  */
 public class GuitarHero{
 
-	private final static String keyboard = "q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ";
-	private final static int n = 37;
+	private final static String KEYBOARD = "q2we4r5ty7u8i9op-[=zxdcfvgbnjmk, .;/' ";
+	private final static int N = 37;
 
-	private static double frequncyOf(int i){
+	private static double frequncyOf(int i) {
 		return 440.0 * Math.pow(2, (i - 24.0) / 12.0);
 	}
 
@@ -19,28 +19,36 @@ public class GuitarHero{
 
 		GuitarString[] strings = new GuitarString[37];
 
-		for(int i = 0; i < n; i ++) strings[i] = new GuitarString(frequncyOf(i));
+		for (int i = 0; i < N; i++) {
+			strings[i] = new GuitarString(frequncyOf(i));
+		}
 
 		while (true) {
 
 			/* check if the user has typed a key; if so, process it */
 			if (StdDraw.hasNextKeyTyped()) {
 				char key = StdDraw.nextKeyTyped();
-				int index = keyboard.indexOf(key);
-				if(index == -1) continue;
+				int index = KEYBOARD.indexOf(key);
+				if (index == -1) {
+					continue;
+				}
 				strings[index].pluck();
 			}
 
 			/* compute the superposition of samples */
 			double sample = 0;
 
-			for(int i = 0; i < n; i ++) sample += strings[i].sample();
+			for (int i = 0; i < N; i++) {
+				sample += strings[i].sample();
+			}
 
 			/* play the sample on standard audio */
 			StdAudio.play(sample);
 
 			/* advance the simulation of each guitar string by one step */
-			for(int i = 0; i < n; i ++) strings[i].tic();
+			for (int i = 0; i < N; i++) {
+				strings[i].tic();
+			}
 		}
 	}
 }

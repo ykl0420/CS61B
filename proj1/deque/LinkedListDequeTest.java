@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 public class LinkedListDequeTest {
 
     @Test
-    /** Adds a few things to the list, checking isEmpty() and size() are correct,
+    /** Adds a few things to the list, checking isEmpty() and size() are correct, 
      * finally printing the results.
      *
      * && is the "and" operation. */
@@ -112,8 +112,8 @@ public class LinkedListDequeTest {
 
         boolean passed1 = false;
         boolean passed2 = false;
-        assertEquals("Should return null when removeFirst is called on an empty Deque,", null, lld1.removeFirst());
-        assertEquals("Should return null when removeLast is called on an empty Deque,", null, lld1.removeLast());
+        assertEquals("Should return null when removeFirst is called on an empty Deque, ", null, lld1.removeFirst());
+        assertEquals("Should return null when removeLast is called on an empty Deque, ", null, lld1.removeLast());
 
 //        */
     }
@@ -141,7 +141,7 @@ public class LinkedListDequeTest {
     }
 
     @Test
-    public void ownTestByHand1(){
+    public void ownTestByHand1() {
         LinkedListDeque<Integer> t1 = new LinkedListDeque<Integer>();
         ArrayDeque<Integer> t2 = new ArrayDeque<>();
         t1.addFirst(1);
@@ -149,7 +149,7 @@ public class LinkedListDequeTest {
         t1.addFirst(2);
         t2.addFirst(2);
         t2.printDeque();
-        assertEquals(2,t2.size());
+        assertEquals(2, t2.size());
         t1.removeLast();
         t2.removeLast();
         t2.printDeque();
@@ -165,50 +165,54 @@ public class LinkedListDequeTest {
         t2.printDeque();
         assertTrue(t1.equals(t2));
         assertTrue(t2.equals(t1));
-        assertEquals(t1.size(),2);
-        assertEquals(t2.size(),2);
-        assertEquals((int)t1.get(0),2);
-        assertEquals((int)t2.get(0),2);
-        assertEquals((int)t1.get(1),4);
-        assertEquals((int)t2.get(1),4);
-        assertEquals((int)t1.get(0),(int)t1.getRecursive(0));
-        assertEquals((int)t1.get(1),(int)t1.getRecursive(1));
-        assertEquals(null,t1.getRecursive(2));
-        assertEquals(t1.get(2),null);
-        assertEquals(t2.get(2),null);
+        assertEquals(t1.size(), 2);
+        assertEquals(t2.size(), 2);
+        assertEquals((int)t1.get(0), 2);
+        assertEquals((int)t2.get(0), 2);
+        assertEquals((int)t1.get(1), 4);
+        assertEquals((int)t2.get(1), 4);
+        assertEquals((int)t1.get(0), (int)t1.getRecursive(0));
+        assertEquals((int)t1.get(1), (int)t1.getRecursive(1));
+        assertEquals(null, t1.getRecursive(2));
+        assertEquals(t1.get(2), null);
+        assertEquals(t2.get(2), null);
 
     }
 
     @Test
-    public void testResize(){
+    public void testResize() {
 
         ArrayDeque<Integer> t2 = new ArrayDeque<>();
 
-        for(int i = 0; i < 16; i ++) t2.addFirst(i);
-        assertEquals(16,t2.size());
+        for (int i = 0; i < 16; i++) t2.addFirst(i);
+        assertEquals(16, t2.size());
         t2.printDeque();
-        for(int i = 0; i < 16; i ++) assertEquals(15 - i,(int)t2.get(i));
-        for(int i = 15; i >= 2; i --) assertEquals(15 - i,(int)t2.removeLast());
-        assertEquals(2,t2.size());
-        assertEquals(15,(int)t2.get(0));
-        assertEquals(14,(int)t2.get(1));
+        for (int i = 0; i < 16; i++) assertEquals(15 - i, (int)t2.get(i));
+        for (int i = 15; i >= 2; i--) assertEquals(15 - i, (int)t2.removeLast());
+        assertEquals(2, t2.size());
+        assertEquals(15, (int)t2.get(0));
+        assertEquals(14, (int)t2.get(1));
     }
 
     public class MinCompartor<T extends Comparable<? super T> > implements Comparator<T>{
-        public int compare(T x,T y){
-            if(x == null) return -1;
+        public int compare(T x, T y) {
+            if (x == null) {
+                return -1;
+            }
             return -x.compareTo(y);
         }
     }class MaxCompartor<T extends Comparable<? super T> > implements Comparator<T>{
-        public int compare(T x,T y){
-            if(x == null) return -1;
+        public int compare(T x, T y) {
+            if (x == null) {
+                return -1;
+            }
             return x.compareTo(y);
         }
     }
 
     @Test
-    public void testMaxArrayDeque(){
-        MaxArrayDeque<Integer> t = new MaxArrayDeque<>(new MinCompartor<Integer>());
+    public void testMaxArrayDeque() {
+        MaxArrayDeque<Integer> t = new MaxArrayDeque<> (new MinCompartor<Integer>());
         t.addFirst(1);
         t.addFirst(10);
         t.addFirst(1);
@@ -223,7 +227,7 @@ public class LinkedListDequeTest {
         t.addFirst(3);
         t.addFirst(3);
         t.addLast(-5);
-        assertEquals(-5,(int)t.max());
-        assertEquals(10,(int)t.max(new MaxCompartor<>()));
+        assertEquals(-5, (int)t.max());
+        assertEquals(10, (int)t.max(new MaxCompartor<>()));
     }
 }

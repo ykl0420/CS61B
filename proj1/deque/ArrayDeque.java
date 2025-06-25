@@ -2,11 +2,11 @@ package deque;
 
 import java.util.Iterator;
 
-public class ArrayDeque<T> implements Iterable<T>,Deque<T> {
+public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
 
 	private AList<T> list;
 
-	public ArrayDeque(){
+	public ArrayDeque() {
 		list = new AList<>();
 	}
 
@@ -52,7 +52,7 @@ public class ArrayDeque<T> implements Iterable<T>,Deque<T> {
 		return list.get(index);
 	}
 
-	/** The Deque objects we’ll make are iterable (i.e. Iterable<T>){
+	/** The Deque objects we’ll make are iterable (i.e. Iterable<T>) {
 
 
 	 } so we must provide this method to return an iterator. */
@@ -64,25 +64,30 @@ public class ArrayDeque<T> implements Iterable<T>,Deque<T> {
 	/** Returns whether or not the parameter o is equal to the Deque.
 	 *  o is considered equal if it is a Deque and if it contains the same contents
 	 *  (as goverened by the generic T’s equals method) in the same order.
-	 *  (ADDED 2/12: You’ll need to use the instance of keywords for this. Read here for more information) */
+	 *  (ADDED 2/12: You’ll need to use the instance of keywords for this.
+	 *  Read here for more information) */
 	@Override
-	public boolean equals(Object o){
-		if(o == null) return false;
-		if(!(o instanceof Deque)) return false;
-		if(this.size() != ((Deque)o).size()) return false;
-		if(o instanceof Iterable){
-			Iterable other = (Iterable)o;
-			Iterator<T> it1 = this.iterator(),it2 = other.iterator();
-			while(it1.hasNext()){
-				if(!it1.next().equals(it2.next())){
+	public boolean equals(Object o) {
+
+		if (!(o instanceof Deque)) {
+			return false;
+		}
+		if (this.size() != ((Deque) o).size()) {
+			return false;
+		}
+		if (o instanceof Iterable) {
+			Iterable other = (Iterable) o;
+			Iterator<T> it1 = this.iterator(), it2 = other.iterator();
+			while (it1.hasNext()) {
+				if (!it1.next().equals(it2.next())) {
 					return false;
 				}
 			}
 			return true;
-		}else{
-			Deque other = (Deque)o;
-			for(int i = 0; i < this.size(); i ++){
-				if(this.get(i) != other.get(i)){
+		} else {
+			Deque other = (Deque) o;
+			for (int i = 0; i < this.size(); i++) {
+				if (this.get(i).equals(other.get(i))) {
 					return false;
 				}
 			}
