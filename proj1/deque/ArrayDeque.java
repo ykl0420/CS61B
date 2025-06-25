@@ -66,17 +66,27 @@ public class ArrayDeque<T> implements Iterable<T>,Deque<T> {
 	 *  (as goverened by the generic T’s equals method) in the same order.
 	 *  (ADDED 2/12: You’ll need to use the instance of keywords for this. Read here for more information) */
 	@Override
-	public boolean equals(Object o) {
+	public boolean equals(Object o){
 		if(o == null) return false;
-		if(o instanceof Deque) return false;
-		Deque<T> other = (Deque<T>)o;
-		if(this.size() != other.size()) return false;
-		Iterator<T> it1 = this.iterator(),it2 = other.iterator();
-		while(it1.hasNext()){
-			if(!it1.next().equals(it2.next())){
-				return false;
+		if(!(o instanceof Deque)) return false;
+		if(this.size() != ((Deque)o).size()) return false;
+		if(o instanceof Iterable){
+			Iterable other = (Iterable)o;
+			Iterator<T> it1 = this.iterator(),it2 = other.iterator();
+			while(it1.hasNext()){
+				if(!it1.next().equals(it2.next())){
+					return false;
+				}
 			}
+			return true;
+		}else{
+			Deque other = (Deque)o;
+			for(int i = 0; i < this.size(); i ++){
+				if(this.get(i) != other.get(i)){
+					return false;
+				}
+			}
+			return true;
 		}
-		return true;
 	}
 }

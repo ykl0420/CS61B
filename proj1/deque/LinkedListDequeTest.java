@@ -163,6 +163,8 @@ public class LinkedListDequeTest {
         t2.removeFirst();
 //        t1.printDeque();
         t2.printDeque();
+        assertTrue(t1.equals(t2));
+        assertTrue(t2.equals(t1));
         assertEquals(t1.size(),2);
         assertEquals(t2.size(),2);
         assertEquals((int)t1.get(0),2);
