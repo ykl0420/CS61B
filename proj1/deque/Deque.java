@@ -2,7 +2,7 @@ package deque;
 
 import java.util.Iterator;
 
-public interface Deque<T> extends Iterable<T> {
+public interface Deque<T>{
 
 	/** Adds an item of type T to the front of the deque.
 	 *  You can assume that item is never null. */
@@ -29,12 +29,4 @@ public interface Deque<T> extends Iterable<T> {
 	 *  If no such item exists, returns null. Must not alter the deque! */
 	public T get(int index);
 
-	/** The Deque objects we’ll make are iterable (i.e. Iterable<T>); so we must provide this method to return an iterator. */
-	public Iterator<T> iterator();
-
-	/** Returns whether or not the parameter o is equal to the Deque.
-	 *  o is considered equal if it is a Deque and if it contains the same contents
-	 *  (as goverened by the generic T’s equals method) in the same order.
-	 *  (ADDED 2/12: You’ll need to use the instance of keywords for this. Read here for more information) */
-	public boolean equals(Object o);
 }
