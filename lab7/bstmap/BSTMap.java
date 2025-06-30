@@ -132,7 +132,7 @@ public class BSTMap<K extends Comparable<K>,V> implements Map61B<K,V> {
 		print(u.right);
 	}
 
-	private void print() {
+	public void printInOrder() {
 		System.out.print("BST Keys List: [ ");
 		print(root);
 		System.out.println("]\n");
