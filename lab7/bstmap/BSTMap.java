@@ -4,7 +4,6 @@ import java.util.Stack;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.stream.StreamSupport;
 
 public class BSTMap<K extends Comparable<K>,V> implements Map61B<K,V> {
 
@@ -63,7 +62,7 @@ public class BSTMap<K extends Comparable<K>,V> implements Map61B<K,V> {
 		return new BSTMapIterator();
 	}
 
-	BSTMap() {
+	public BSTMap() {
 		root = null;
 		EMPTY_NODE = new Node();
 	}
