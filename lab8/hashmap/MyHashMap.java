@@ -148,7 +148,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         for(int i = 0; i < M; i ++) buckets[i] = createBucket();
     }
 
-    public int getIndex(K key){
+    private int getIndex(K key){
         int hashCode = key.hashCode();
         return (hashCode % M + M) % M;
     }
